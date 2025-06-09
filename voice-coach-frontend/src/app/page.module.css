@@ -6,7 +6,7 @@
   --button-primary-hover: #383838;
   --button-secondary-hover: #f2f2f2;
 
-  display: grid;
+  /* display: grid; */
   grid-template-rows: 20px 1fr 20px;
   align-items: center;
   justify-items: center;
@@ -166,3 +166,24 @@ a.secondary {
     filter: invert();
   }
 }
+
+.howItWorksCard {
+  flex: 1 1 220px;
+  min-width: 220px;
+  max-width: 240px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+  border: 1px solid #f3f4f6;
+}
+.howItWorksCard:hover {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  transform: translateY(-4px) scale(1.03);
+}
+

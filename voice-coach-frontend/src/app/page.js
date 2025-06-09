@@ -25,7 +25,7 @@ export default function Home() {
         </section>
 
         {/* How It Works */}
-        <section style={{ maxWidth: 700, margin: "0 auto 48px auto" }}>
+        <section style={{ maxWidth: 900, margin: "0 auto 48px auto" }}>
           <h2 style={{ fontSize: 28, fontWeight: 600, marginBottom: 24, textAlign: "center" }}>How It Works</h2>
           <ol style={{ display: "flex", flexWrap: "nowrap", gap: 24, justifyContent: "center", listStyle: "none", padding: 0 }}>
             <li style={{ flex: "1 1 180px", minWidth: 180 }}>

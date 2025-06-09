@@ -47,7 +47,9 @@ npm start dev
 3. Start the backend
 ```bash
 cd voice-coach-backend
-npm install
+source virtualenv/bin/activate
+pip install fastapi uvicorn python-multipart
+uvicorn main:app --reload
 ```
 
 
