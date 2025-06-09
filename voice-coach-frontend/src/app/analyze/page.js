@@ -131,6 +131,9 @@ export default function Analyze() {
   const isPro = user?.publicMetadata?.pro === true;
   // If not logged in, treat as not pro
   const isLoggedIn = !!user;
+
+  console.log("User is pro", user?.publicMetadata?.pro)
+  console.log("User", user)
   // Use a single effective upload count
   const effectiveUploadCount = isLoggedIn
     ? (user?.publicMetadata?.uploadCount || 0)
@@ -193,17 +196,6 @@ export default function Analyze() {
     }
   };
 
-  async function incrementUploadCountBackend(userId) {
-    console.log("Incrementing upload count for user", userId)
-    const response = await fetch('/api/increment-upload', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId }),
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || 'Failed to increment upload count');
-  }
-
   async function incrementUploadCount() {
     if (user) {
       console.log("Incrementing upload count for user", user.id)
@@ -245,7 +237,7 @@ export default function Analyze() {
         });
       } else {
         // For guests, update local state
-        setLocalUploadCount((prev) => prev + 1);
+        // setLocalUploadCount((prev) => prev + 1);
       }
     } catch (err) {
       setError('Failed to analyze audio.');
@@ -265,10 +257,16 @@ export default function Analyze() {
   async function saveVoiceReport() {
     setSaving(true);
     try {
+      const formData = new FormData();
+      formData.append('audio', audioFileOrBlob); // The audio file/blob
+      formData.append('analysis', JSON.stringify(analysis));
+      formData.append('clerkId', user?.id || '');
+      formData.append('guestId', user?.id || '');
+      formData.append('userId', user?.id || '');
+  
       const response = await fetch('/api/save-report', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ analysis, userId: user?.id || null }),
+        body: formData,
       });
       const data = await response.json();
       if (response.ok && data.id) {

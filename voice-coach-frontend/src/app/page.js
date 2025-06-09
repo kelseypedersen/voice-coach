@@ -70,9 +70,9 @@ export default function Home() {
                 <li>✅ Downloadable reports</li>
                 <li>✅ Priority support</li>
               </ul>
-              <a className={"primary " + styles.primary} href="#" style={{ marginTop: '20px'}}>
+              <Link href="/pricing" className={"primary " + styles.primary} style={{ marginTop: '20px' }}>
                 Upgrade to Pro
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -117,9 +117,9 @@ export default function Home() {
           <h2 style={{ fontSize: 26, fontWeight: 700, marginBottom: 16 }}>
             Ready to sound more confident?
           </h2>
-          <a className={"primary " + styles.primary} href="#" style={{ minWidth: 180 }}>
+          <Link href="/analyze" className={"primary " + styles.primary} style={{ minWidth: 180 }}>
             Start Free Voice Check
-          </a>
+          </Link>
         </section>
       </main>
       <footer className={styles.footer}>
