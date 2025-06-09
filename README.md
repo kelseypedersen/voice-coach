@@ -44,7 +44,7 @@ cd voice-coach-frontend
 npm start dev
 ```
 
-3. Start the backend
+3. **Start the backend**
 ```bash
 cd voice-coach-backend
 source virtualenv/bin/activate
@@ -52,8 +52,7 @@ pip install fastapi uvicorn python-multipart
 uvicorn main:app --reload
 ```
 
-
-3. **Add environment variables in `.env.local`**
+4. **Add environment variables in `.env.local`**
 ```
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_xxx
 CLERK_SECRET_KEY=sk_xxx
