@@ -11,7 +11,7 @@ async function analyzeAudioFile(audioFileOrBlob) {
   const formData = new FormData();
   formData.append("file", audioFileOrBlob);
 
-  const response = await fetch(`${API_BASE_URL}/analyze-audio/`, {
+  const response = await fetch(`/analyze-audio/`, {
     method: "POST",
     body: formData,
   });
