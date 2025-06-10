@@ -5,11 +5,13 @@ import { useUser } from "@clerk/nextjs";
 import TooltipInfo from "../../components/TooltipInfo"
 import Link from "next/link";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 async function analyzeAudioFile(audioFileOrBlob) {
   const formData = new FormData();
   formData.append("file", audioFileOrBlob);
 
-  const response = await fetch("http://localhost:8000/analyze-audio/", {
+  const response = await fetch(`${API_BASE_URL}/analyze-audio/`, {
     method: "POST",
     body: formData,
   });
@@ -314,15 +316,16 @@ export default function Analyze() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        {/* Hero */}
-        <section style={{ textAlign: "center" }}>
-          <h1 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12 }}>
-            Try It for Free
-          </h1>
-          <p style={{ fontSize: 18, color: "#666", marginBottom: 24 }}>
-            Upload or record your voice and get instant feedback on your speaking style.
-          </p>
-        </section>
+        {!analysis && (
+          <section style={{ textAlign: "center" }}>
+            <h1 style={{ fontSize: 32, fontWeight: 700, marginBottom: 12 }}>
+              Try It for Free
+            </h1>
+            <p style={{ fontSize: 18, color: "#666", marginBottom: 24 }}>
+              Upload or record your voice and get instant feedback on your speaking style.
+            </p>
+          </section>
+        )}
 
         {/* Minimized upload/record section if audio is present */}
         {(!analysis && audioFileOrBlob) ? (
@@ -351,7 +354,7 @@ export default function Analyze() {
             </button>
             {reachedLimit && (
               <div style={{ color: "red", marginTop: 8 }}>
-                You have reached your limit of 3 analyses. {isLoggedIn ? <a href="/pricing" style={{ color: "#0070f3", textDecoration: "underline" }}>Upgrade to Pro</a> : <a href="/sign-in" style={{ color: "#0070f3", textDecoration: "underline" }}>Log in</a>} for unlimited access.
+                You have reached your limit of 3 analyses. {isLoggedIn ? <a href="/pricing" style={{ color: "#0070f3", textDecoration: "underline" }}>Upgrade to Pro</a> : <a href="/pricing" style={{ color: "#0070f3", textDecoration: "underline" }}>Log in</a>} for unlimited access.
               </div>
             )}
             {error && <div style={{ color: "red", marginTop: 8 }}>{error}</div>}
@@ -396,7 +399,7 @@ export default function Analyze() {
             </label>
             {reachedLimit && (
               <div style={{ color: "red", marginTop: 8 }}>
-                You have reached your limit of 3 analyses. {isLoggedIn ? <a href="/pricing" style={{ color: "#0070f3", textDecoration: "underline" }}>Upgrade to Pro</a> : <a href="/sign-in" style={{ color: "#0070f3", textDecoration: "underline" }}>Log in</a>} for unlimited access.
+                You have reached your limit of 3 analyses. {isLoggedIn ? <a href="/pricing" style={{ color: "#0070f3", textDecoration: "underline" }}>Upgrade to Pro</a> : <a href="/pricing" style={{ color: "#0070f3", textDecoration: "underline" }}>Log in</a>} for unlimited access.
               </div>
             )}
             {audioURL && !audioFileOrBlob && (
@@ -470,10 +473,15 @@ export default function Analyze() {
 
               {/* Confidence Score and Metrics */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24, marginBottom: 32, justifyContent: 'center' }}>
-                <div style={{ minWidth: 180, background: '#f3f4f6', borderRadius: 12, padding: 20, textAlign: 'center' }}>
-                  <div style={{ color: '#666', fontSize: 14 }}>Overall Confidence Score</div>
-                  <div style={{ fontSize: 32, fontWeight: 700, color: '#0070f3' }}>{analysis.score ?? '—'} / 100</div>
+              <div style={{ minWidth: 180, background: '#f3f4f6', borderRadius: 12, padding: 20, textAlign: 'center' }}>
+                <div style={{ color: '#666', fontSize: 14 }}>
+                  Overall Confidence Score
+                  <TooltipInfo message="This score is calculated based on your speaking pace, filler words, hesitations, and overall clarity." />
                 </div>
+                <div style={{ fontSize: 32, fontWeight: 700, color: '#0070f3' }}>
+                  {analysis.score ?? '—'} / 100
+                </div>
+              </div>
                 <div style={{ minWidth: 140, background: '#f3f4f6', borderRadius: 12, padding: 20, textAlign: 'center' }}>
                   <div style={{ color: '#666', fontSize: 14 }}>
                     Words Per Minute
