@@ -76,8 +76,27 @@ export async function POST(req) {
   if (userError) {
     return NextResponse.json({ error: userError.message }, { status: 500 });
   }
+
+  let userIdForReport;
+  
   if (!user) {
-    return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    // Create new user if not found
+    const { data: newUser, error: newUserError } = await supabase
+      .from('users')
+      .insert([
+        {
+          clerk_id: clerkId,
+          guest_id: guestId,
+        }
+      ])
+      .select('id')
+      .single();
+    if (newUserError) {
+      return NextResponse.json({ error: newUserError.message }, { status: 500 });
+    }
+    userIdForReport = newUser.id;
+  } else {
+    userIdForReport = user.id;
   }
 
   // 3. Insert the report with the audio URL
@@ -85,7 +104,7 @@ export async function POST(req) {
     .from('reports')
     .insert([
       {
-        user_id: user.id,
+        user_id: userIdForReport,
         analysis,
         audio_url: audioUrl,
       }

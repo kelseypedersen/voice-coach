@@ -7,7 +7,7 @@ export default function Home() {
     <div className={styles.page}>
       <main className={styles.main}>
         {/* Hero Section */}
-        <section style={{ textAlign: "center", marginBottom: 48 }}>
+        <section style={{ textAlign: "center", marginBottom: 48, paddingTop: 48 }}>
           <h1 style={{ fontSize: 40, fontWeight: 700, marginBottom: 16 }}>
             Speak with Confidence. Every Time.
           </h1>
