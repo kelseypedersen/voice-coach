@@ -1,5 +1,3 @@
-# 🎙️ Voice Confidence Coach
-
 An AI-powered app to help users identify passive speech patterns, analyze vocal tone, and rewrite speech with confidence. Designed especially for women who want to speak with more clarity, assertiveness, and presence.
 
 ---
@@ -38,18 +36,21 @@ git clone https://github.com/yourname/voice-coach-app.git
 cd voice-coach-app
 ```
 
-2. **Start the frontend** 
+2. **See the frontend** 
 ```bash
 cd voice-coach-frontend
-npm start dev
 ```
 
-3. **Start the backend**
+3. **See the backend**
 ```bash
 cd voice-coach-backend
 source virtualenv/bin/activate
-pip install fastapi uvicorn python-multipart
-uvicorn main:app --reload
+pip install -r requirements.txt
+```
+
+4. **Start docker**
+```bash 
+docker-compose up --build
 ```
 
 4. **Add environment variables in `.env.local`**

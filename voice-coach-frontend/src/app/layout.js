@@ -3,6 +3,8 @@ import "./globals.css";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
+import AmplitudeProvider from "./AmplitudeProvider";
+import { Analytics } from "@vercel/analytics/next"
 
 import {
   ClerkProvider,
@@ -33,6 +35,8 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <AmplitudeProvider />
+        <Analytics />
         <nav style={{
           display: "flex",
           alignItems: "center",
@@ -73,5 +77,6 @@ export default function RootLayout({ children }) {
       </body>
     </html>
     </ClerkProvider>
+
   );
 }
